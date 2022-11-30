@@ -9,19 +9,20 @@ import org.springframework.web.bind.annotation.RequestParam;
 import web.service.CarService;
 
 @Controller
+@RequestMapping("/cars")
 public class CarController {
 
     private final CarService carService;
 
     @Autowired
-    protected CarController(CarService carService) {
+    public CarController(CarService carService) {
         this.carService = carService;
     }
 
-    @GetMapping ("/cars")
+    @GetMapping ("")
     public String getCar (@RequestParam (value = "count", required = false, defaultValue = "5") int count,
                           Model model) {
-        model.addAttribute("car", carService.getCars(count));
-        return "cars";
+        model.addAttribute("cars", carService.getCars(count));
+        return "views/cars";
     }
 }
